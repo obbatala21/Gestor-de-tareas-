@@ -1,10 +1,17 @@
-import { TodoId, type Todo as TodoType } from "../types";
+import { TodoId, TodoIdAndCompleted, type Todo as TodoType } from "../types";
 
-interface Props extends TodoType{
-    onRemoveTodo: ({id}: TodoId) => void
+interface Props extends TodoType {
+  onRemoveTodo: ({ id }: TodoId) => void;
+  onToggleCompletedTodo: ({ id, completed }: TodoIdAndCompleted) => void;
 }
 
-export const Todo: React.FC<Props> = ({ id, title, completed, onRemoveTodo }) => {
+export const Todo: React.FC<Props> = ({
+  id,
+  title,
+  completed,
+  onRemoveTodo,
+  onToggleCompletedTodo,
+}) => {
   return (
     <div
       className={`flex items-center justify-between py-2 px-4 border-b ${
@@ -19,7 +26,9 @@ export const Todo: React.FC<Props> = ({ id, title, completed, onRemoveTodo }) =>
         }`}
         type="checkbox"
         checked={completed}
-        onChange={() => {}}
+        onChange={(e) => {
+          onToggleCompletedTodo({ id, completed: e.target.checked });
+        }}
       />
       <label
         className={`flex-grow ml-4 text-lg ${
@@ -30,7 +39,9 @@ export const Todo: React.FC<Props> = ({ id, title, completed, onRemoveTodo }) =>
       </label>
       <button
         className="text-red-500 hover:text-red-400 text-xl"
-        onClick={() => {onRemoveTodo({id})}}
+        onClick={() => {
+          onRemoveTodo({ id });
+        }}
       >
         ✖
       </button>
