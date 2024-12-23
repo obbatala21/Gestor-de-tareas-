@@ -11,7 +11,7 @@ export const Filters: React.FC<Props> = ({
   filterSelected,
 }) => {
   return (
-    <ul className="flex space-x-4">
+    <ul className="flex space-x-4 px-4">
       {Object.entries(FILTER_BUTTONS).map(([key, { href, literal }]) => {
         const isSelected = key === filterSelected;
         const className = isSelected
