@@ -78,6 +78,13 @@ const App = (): JSX.Element => {
     return todo;
   });
 
+  const handleEditTodo = ({id,title}: TodoId & TodoTitle): void =>{
+    const newTodos = todos.map((todo) =>
+      todo.id === id ? {...todo, title} : todo
+    );
+    setTodos(newTodos)
+  }
+
   return (
     <div className="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md">
@@ -86,6 +93,7 @@ const App = (): JSX.Element => {
           todos={filteredTodos}
           onRemoveTodo={handleRemove}
           onToggleCompletedTodo={handleCompleted}
+          onEditTodo={handleEditTodo}
         />
         <Footer
           activeCount={activeCount}
